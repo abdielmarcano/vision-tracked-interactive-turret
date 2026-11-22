@@ -1,0 +1,17 @@
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+secrets.h
+credentials.h
+wifi_credentials.h
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# System files
+.DS_Store
