@@ -14,7 +14,11 @@ A camera-driven, single-axis face-following prototype built to explore a propose
 |---|---|
 | ![Breadboard microcontroller wiring and servo](media/IMG_3014.jpg) | ![Prototype on work surface](media/IMG_3040.jpg) |
 
-**Demo video:** A 55-second original test recording exists, but it has been withheld from this public-ready package pending a final review for recognizable people and household details. These photographs are authentic hardware images, not generated mockups.
+## Video demonstration
+
+<a href="media/vision-tracked-turret-demo.mp4"><img src="media/turret-demo-preview.jpg" width="260" alt="Preview frame from the authentic turret prototype demonstration video; click to watch the 21-second recording"></a>
+
+**[Watch the 21-second prototype demonstration](media/vision-tracked-turret-demo.mp4)** (MP4, 2.9 MB). This is an edited recording of the real prototype, showing the host tracking window, breadboard hardware, and face-following test. Labels were added for clarity; family photographs in the background were blurred. No simulated tracking or movement was added. The photographs above are also authentic images of the hardware.
 
 ## Why I built it
 
@@ -23,13 +27,17 @@ The proposed guest experience required two engineering capabilities: **sensing a
 ## System architecture
 
 ```mermaid
-flowchart LR
-    A[ESP32-S3 camera] -->|Wi-Fi Motion JPEG stream| B[Laptop: Python and OpenCV]
-    B --> C[Detect largest frontal face]
-    C --> D[Calculate horizontal position error]
-    D --> E[Apply dead zone and motion limits]
-    E -->|USB serial angle command| F[ESP32-S3 firmware]
-    F -->|Pulse-width modulation| G[MG996R servo]
+flowchart TB
+    A["ESP32-S3 Sense camera<br/>Captures and streams video"]
+    B["Laptop: Python + OpenCV<br/>Detects face and calculates horizontal offset"]
+    C["Laptop: Motion control<br/>Applies dead zone and angle limits"]
+    D["ESP32-S3 firmware<br/>Receives serial angle and drives servo"]
+    E["MG996R servo<br/>Rotates the physical prototype"]
+
+    A -->|Wi-Fi MJPEG stream| B
+    B --> C
+    C -->|USB serial command| D
+    D -->|PWM signal| E
 ```
 
 **Division of work:** The camera captures and streams frames, while the laptop performs detection and position calculations. The microcontroller receives serial angles and controls the servo. **Face detection does not run on the ESP32-S3.**
