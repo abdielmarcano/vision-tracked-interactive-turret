@@ -2,6 +2,8 @@
 
 **Computer vision + embedded control | Working proof of concept | July 2026**
 
+[Portfolio case study](https://abdiel-portfolio.vercel.app/projects/vision-tracked-interactive-turret)
+
 A camera-driven, single-axis face-following prototype built to explore a proposed **Star Wars-inspired interactive room installation**. A family member who designs themed rental spaces wanted a decorative prop that could respond to a guest entering the room and turn toward them as they moved. I built a smaller working prototype to validate the key **camera-to-motion tracking behavior** before attempting a full-scale installation.
 
 **Demonstrated outcome:** A camera stream was processed on a laptop to detect a frontal face, estimate its horizontal position, and send motion commands back to an ESP32-S3 microcontroller. An externally powered servo physically followed the detected face during testing.
